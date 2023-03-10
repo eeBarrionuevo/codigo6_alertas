@@ -1,21 +1,21 @@
 import 'package:flutter/material.dart';
 
-class CommonTextFieldWidget extends StatelessWidget {
-  String label;
-  String hintText;
+class CommonTextFieldPasswordWidget extends StatefulWidget {
+  const CommonTextFieldPasswordWidget({super.key});
+  @override
+  State<CommonTextFieldPasswordWidget> createState() =>
+      _CommonTextFielPasswordWidgetState();
+}
 
-  CommonTextFieldWidget({
-    required this.label,
-    required this.hintText,
-  });
-
+class _CommonTextFielPasswordWidgetState
+    extends State<CommonTextFieldPasswordWidget> {
   @override
   Widget build(BuildContext context) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          " $label:",
+          " Contraseña:",
         ),
         const SizedBox(
           height: 8.0,
@@ -32,7 +32,7 @@ class CommonTextFieldWidget extends StatelessWidget {
           ),
           child: TextField(
             decoration: InputDecoration(
-              hintText: hintText,
+              hintText: "Tu contraseña",
               hintStyle: TextStyle(
                 fontSize: 14.0,
               ),

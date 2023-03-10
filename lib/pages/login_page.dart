@@ -1,5 +1,6 @@
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
+import 'package:codigo6_alertas/widgets/common_textfield_password_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -55,11 +56,14 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 8.0,
                 ),
-                CommonTextFieldWidget(),
+                CommonTextFieldWidget(
+                  label: "DNI",
+                  hintText: "Tu DNI",
+                ),
                 const SizedBox(
                   height: 20.0,
                 ),
-                CommonTextFieldWidget(),
+                CommonTextFieldPasswordWidget(),
                 const SizedBox(
                   height: 30.0,
                 ),
