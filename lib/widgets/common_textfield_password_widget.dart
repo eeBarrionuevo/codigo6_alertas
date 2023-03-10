@@ -9,6 +9,8 @@ class CommonTextFieldPasswordWidget extends StatefulWidget {
 
 class _CommonTextFielPasswordWidgetState
     extends State<CommonTextFieldPasswordWidget> {
+  bool isInvisible = true;
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -31,6 +33,7 @@ class _CommonTextFielPasswordWidgetState
             ],
           ),
           child: TextField(
+            obscureText: isInvisible,
             decoration: InputDecoration(
               hintText: "Tu contraseña",
               hintStyle: TextStyle(
@@ -39,6 +42,18 @@ class _CommonTextFielPasswordWidgetState
               contentPadding: const EdgeInsets.symmetric(
                 horizontal: 12,
                 vertical: 14.0,
+              ),
+              suffixIcon: IconButton(
+                icon: Icon(
+                  isInvisible
+                      ? Icons.remove_red_eye
+                      : Icons.remove_red_eye_outlined,
+                  color: Color(0xff605AF8),
+                ),
+                onPressed: () {
+                  isInvisible = !isInvisible;
+                  setState(() {});
+                },
               ),
               filled: true,
               fillColor: Colors.white,
