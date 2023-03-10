@@ -1,3 +1,4 @@
+import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
@@ -37,46 +38,8 @@ class LoginPage extends StatelessWidget {
                   color: Color(0xff212121),
                 ),
               ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    " DNI:",
-                  ),
-                  const SizedBox(
-                    height: 8.0,
-                  ),
-                  Container(
-                    decoration: BoxDecoration(
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withOpacity(0.06),
-                          blurRadius: 12,
-                          offset: const Offset(4, 4),
-                        ),
-                      ],
-                    ),
-                    child: TextField(
-                      decoration: InputDecoration(
-                        hintText: "Tu DNI",
-                        hintStyle: TextStyle(
-                          fontSize: 14.0,
-                        ),
-                        contentPadding: const EdgeInsets.symmetric(
-                          horizontal: 12,
-                          vertical: 14.0,
-                        ),
-                        filled: true,
-                        fillColor: Colors.white,
-                        focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(14.0),
-                          borderSide: BorderSide.none,
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
+              CommonTextFieldWidget(),
+              CommonTextFieldWidget(),
             ],
           ),
         ),
