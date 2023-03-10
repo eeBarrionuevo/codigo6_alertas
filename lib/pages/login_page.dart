@@ -1,3 +1,4 @@
+import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:codigo6_alertas/utils/types.dart';
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
@@ -69,7 +70,34 @@ class LoginPage extends StatelessWidget {
                 const SizedBox(
                   height: 30.0,
                 ),
-                CommonButtonWidget(),
+                CommonButtonWidget(
+                  text: "Iniciar Sesión",
+                  onPressed: () {
+                    ApiService apiService = ApiService();
+                    apiService.login();
+                  },
+                ),
+                const SizedBox(
+                  height: 20.0,
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "Aún no estás registrado? ",
+                    ),
+                    InkWell(
+                      onTap: () {},
+                      child: Text(
+                        " Regístrate",
+                        style: TextStyle(
+                          color: Color(0xff605AF8),
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
               ],
             ),
           ),

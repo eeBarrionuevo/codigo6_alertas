@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class CommonButtonWidget extends StatelessWidget {
-  const CommonButtonWidget({super.key});
+  String text;
+  VoidCallback onPressed;
+
+  CommonButtonWidget({
+    required this.text,
+    required this.onPressed,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -9,7 +15,7 @@ class CommonButtonWidget extends StatelessWidget {
       width: double.infinity,
       height: 50.0,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           backgroundColor: Color(0xff605AF8),
           shape: RoundedRectangleBorder(
@@ -17,7 +23,7 @@ class CommonButtonWidget extends StatelessWidget {
           ),
         ),
         child: Text(
-          "Iniciar Sesión",
+          text,
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 16.0,
