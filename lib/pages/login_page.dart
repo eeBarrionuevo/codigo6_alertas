@@ -1,3 +1,4 @@
+import 'package:codigo6_alertas/utils/types.dart';
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
 import 'package:codigo6_alertas/widgets/common_textfield_password_widget.dart';
@@ -59,6 +60,7 @@ class LoginPage extends StatelessWidget {
                 CommonTextFieldWidget(
                   label: "DNI",
                   hintText: "Tu DNI",
+                  type: InputType.dni,
                 ),
                 const SizedBox(
                   height: 20.0,

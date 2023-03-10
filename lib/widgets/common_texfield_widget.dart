@@ -1,12 +1,15 @@
+import 'package:codigo6_alertas/utils/types.dart';
 import 'package:flutter/material.dart';
 
 class CommonTextFieldWidget extends StatelessWidget {
   String label;
   String hintText;
+  InputType type;
 
   CommonTextFieldWidget({
     required this.label,
     required this.hintText,
+    required this.type,
   });
 
   @override
@@ -31,6 +34,9 @@ class CommonTextFieldWidget extends StatelessWidget {
             ],
           ),
           child: TextField(
+            keyboardType: type == InputType.dni || type == InputType.phone
+                ? TextInputType.number
+                : TextInputType.text,
             decoration: InputDecoration(
               hintText: hintText,
               hintStyle: TextStyle(
