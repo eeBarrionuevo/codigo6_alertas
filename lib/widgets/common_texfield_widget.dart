@@ -36,7 +36,7 @@ class CommonTextFieldWidget extends StatelessWidget {
               ),
             ],
           ),
-          child: TextField(
+          child: TextFormField(
             controller: controller,
             keyboardType: type == InputType.dni || type == InputType.phone
                 ? TextInputType.number
@@ -69,7 +69,21 @@ class CommonTextFieldWidget extends StatelessWidget {
                 borderRadius: BorderRadius.circular(14.0),
                 borderSide: BorderSide.none,
               ),
+              errorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14.0),
+                borderSide: BorderSide.none,
+              ),
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(14.0),
+                borderSide: BorderSide.none,
+              ),
             ),
+            validator: (String? value) {
+              if (value != null && value.isEmpty) {
+                return "Campo obligatorio";
+              }
+              return null;
+            },
           ),
         ),
       ],
