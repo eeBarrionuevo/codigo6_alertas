@@ -6,11 +6,13 @@ class CommonTextFieldWidget extends StatelessWidget {
   String label;
   String hintText;
   InputType type;
+  TextEditingController controller;
 
   CommonTextFieldWidget({
     required this.label,
     required this.hintText,
     required this.type,
+    required this.controller,
   });
 
   @override
@@ -35,6 +37,7 @@ class CommonTextFieldWidget extends StatelessWidget {
             ],
           ),
           child: TextField(
+            controller: controller,
             keyboardType: type == InputType.dni || type == InputType.phone
                 ? TextInputType.number
                 : TextInputType.text,

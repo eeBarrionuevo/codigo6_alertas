@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 
 class CommonTextFieldPasswordWidget extends StatefulWidget {
-  const CommonTextFieldPasswordWidget({super.key});
+  TextEditingController controller;
+  CommonTextFieldPasswordWidget({required this.controller});
+
   @override
   State<CommonTextFieldPasswordWidget> createState() =>
       _CommonTextFielPasswordWidgetState();
@@ -33,6 +35,7 @@ class _CommonTextFielPasswordWidgetState
             ],
           ),
           child: TextField(
+            controller: widget.controller,
             obscureText: isInvisible,
             decoration: InputDecoration(
               hintText: "Tu contraseña",

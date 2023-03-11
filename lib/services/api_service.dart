@@ -5,7 +5,7 @@ import 'package:codigo6_alertas/models/user_model.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
-  Future<UserModel?> login() async {
+  Future<UserModel> login(String dni, String password) async {
     try {
       Uri url = Uri.parse("http://167.99.240.65/API/login/");
       http.Response response = await http.post(
@@ -14,15 +14,18 @@ class ApiService {
           "Content-Type": "application/json",
         },
         body: json.encode(
-          {"username": "45231212", "password": "mantequilla"},
+          {"username": dni, "password": password},
         ),
       );
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
         UserModel userModel = UserModel.fromJson(data["user"]);
         return userModel;
+      } else if (response.statusCode == 400) {
+        throw {"message": "Tus credenciales fueron incorrectas."};
+      } else {
+        throw {"message": "Hubo un error."};
       }
-      return null;
     } on TimeoutException catch (e) {
       return Future.error({
         "message":

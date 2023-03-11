@@ -6,6 +6,20 @@ import 'package:codigo6_alertas/widgets/common_textfield_password_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatelessWidget {
+  final TextEditingController _dniController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+
+  void login() {
+    ApiService apiService = ApiService();
+    apiService
+        .login(_dniController.text, _passwordController.text)
+        .then((value) {
+      print(value);
+    }).catchError((error) {
+      print("ERROR LOGIN PAGE:::: $error");
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -62,23 +76,21 @@ class LoginPage extends StatelessWidget {
                   label: "DNI",
                   hintText: "Tu DNI",
                   type: InputType.dni,
+                  controller: _dniController,
                 ),
                 const SizedBox(
                   height: 20.0,
                 ),
-                CommonTextFieldPasswordWidget(),
+                CommonTextFieldPasswordWidget(
+                  controller: _passwordController,
+                ),
                 const SizedBox(
                   height: 30.0,
                 ),
                 CommonButtonWidget(
                   text: "Iniciar Sesión",
                   onPressed: () {
-                    ApiService apiService = ApiService();
-                    apiService.login().then((value) {
-                      print(value);
-                    }).catchError((error) {
-                      print("ERROR LOGIN PAGE:::: $error");
-                    });
+                    login();
                   },
                 ),
                 const SizedBox(
