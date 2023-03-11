@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:codigo6_alertas/models/user_model.dart';
+import 'package:codigo6_alertas/utils/sp_global.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -20,6 +21,8 @@ class ApiService {
       if (response.statusCode == 200) {
         Map<String, dynamic> data = json.decode(response.body);
         UserModel userModel = UserModel.fromJson(data["user"]);
+        SPGlobal().isLogin = true;
+        SPGlobal().token = data["access"];
         return userModel;
       } else if (response.statusCode == 400) {
         throw {"message": "Tus credenciales fueron incorrectas."};

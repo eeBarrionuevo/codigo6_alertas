@@ -1,5 +1,6 @@
 import 'package:codigo6_alertas/pages/home_page.dart';
 import 'package:codigo6_alertas/pages/map_page.dart';
+import 'package:codigo6_alertas/pages/profile_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -17,9 +18,7 @@ class _InitPageState extends State<InitPage> {
     Center(
       child: Text("Noticias"),
     ),
-    Center(
-      child: Text("Perfil"),
-    ),
+    ProfilePage(),
   ];
 
   @override

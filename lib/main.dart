@@ -1,10 +1,14 @@
 import 'package:codigo6_alertas/pages/init_page.dart';
 import 'package:codigo6_alertas/pages/login_page.dart';
+import 'package:codigo6_alertas/utils/sp_global.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pages/home_page.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SPGlobal prefs = SPGlobal();
+  await prefs.initSharedPreferences();
   runApp(MyApp());
 }
 
@@ -17,7 +21,14 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         textTheme: GoogleFonts.manropeTextTheme(),
       ),
-      home: LoginPage(),
+      home: PreInit(),
     );
+  }
+}
+
+class PreInit extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return SPGlobal().isLogin ? InitPage() : LoginPage();
   }
 }
