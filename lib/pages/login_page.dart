@@ -74,7 +74,11 @@ class LoginPage extends StatelessWidget {
                   text: "Iniciar Sesión",
                   onPressed: () {
                     ApiService apiService = ApiService();
-                    apiService.login();
+                    apiService.login().then((value) {
+                      print(value);
+                    }).catchError((error) {
+                      print("ERROR LOGIN PAGE:::: $error");
+                    });
                   },
                 ),
                 const SizedBox(
