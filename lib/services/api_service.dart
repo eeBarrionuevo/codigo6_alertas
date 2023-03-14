@@ -54,7 +54,9 @@ class ApiService {
     Uri url = Uri.parse("http://167.99.240.65/API/incidentes/");
     http.Response response = await http.get(url);
     if (response.statusCode == 200) {
-      List data = json.decode(response.body);
+      //UTF 8
+      String dataConvert = Utf8Decoder().convert(response.bodyBytes);
+      List data = json.decode(dataConvert);
       List<IncidentModel> incidents = [];
       incidents = data.map((e) => IncidentModel.fromJson(e)).toList();
       return incidents;

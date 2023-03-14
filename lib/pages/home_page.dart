@@ -1,7 +1,10 @@
 import 'package:codigo6_alertas/models/incident_model.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
+import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatelessWidget {
   ApiService apiService = ApiService();
@@ -67,6 +70,39 @@ class HomePage extends StatelessWidget {
                                   ),
                                   Text(
                                     "${incidents[index].fecha} ${incidents[index].hora}",
+                                  ),
+                                ],
+                              ),
+                              trailing: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  IconButton(
+                                    icon: SvgPicture.asset(
+                                      "assets/icons/phone.svg",
+                                      color: kBrandPrimaryColor,
+                                    ),
+                                    onPressed: () {
+                                      Uri uriPhone = Uri(
+                                          scheme: "tel",
+                                          path: incidents[index]
+                                              .datosCiudadano
+                                              .telefono);
+                                      launchUrl(uriPhone);
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: SvgPicture.asset(
+                                      "assets/icons/map.svg",
+                                      color: kBrandPrimaryColor,
+                                    ),
+                                    onPressed: () {
+                                      Uri url = Uri.parse(
+                                          "https://www.google.com/maps/search/?api=1&query=${incidents[index].latitud},${incidents[index].longitud}");
+                                      // Uri url = Uri.parse(
+                                      //     "http://maps.google.com/?q=${incidents[index].latitud},${incidents[index].longitud}");
+                                      launchUrl(url,
+                                          mode: LaunchMode.externalApplication);
+                                    },
                                   ),
                                 ],
                               ),
