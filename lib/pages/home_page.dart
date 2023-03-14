@@ -1,6 +1,10 @@
+import 'package:codigo6_alertas/models/incident_model.dart';
+import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
+  ApiService apiService = ApiService();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -20,48 +24,57 @@ class HomePage extends StatelessWidget {
                 const SizedBox(
                   height: 12.0,
                 ),
-                ListView.builder(
-                  physics: const ScrollPhysics(),
-                  shrinkWrap: true,
-                  itemCount: 20,
-                  itemBuilder: (BuildContext context, int index) {
-                    return Container(
-                      margin: const EdgeInsets.symmetric(
-                        vertical: 8.0,
-                        horizontal: 16.0,
-                      ),
-                      padding: const EdgeInsets.symmetric(vertical: 6.0),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(14.0),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black.withOpacity(0.06),
-                            blurRadius: 12,
-                            offset: const Offset(4, 4),
-                          ),
-                        ],
-                      ),
-                      child: ListTile(
-                        title: Text(
-                          "Secuestro al paso",
-                        ),
-                        subtitle: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              "Juan Manuel Ramos Garcia",
+                FutureBuilder(
+                  future: apiService.getIncidents(),
+                  builder: (BuildContext context, AsyncSnapshot snap) {
+                    if (snap.hasData) {
+                      List<IncidentModel> incidents = snap.data;
+                      return ListView.builder(
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        itemCount: incidents.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                              horizontal: 16.0,
                             ),
-                            Text(
-                              "34565622",
+                            padding: const EdgeInsets.symmetric(vertical: 6.0),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  color: Colors.black.withOpacity(0.06),
+                                  blurRadius: 12,
+                                  offset: const Offset(4, 4),
+                                ),
+                              ],
                             ),
-                            Text(
-                              "2022/12/31 10:40 AM",
+                            child: ListTile(
+                              title: Text(
+                                incidents[index].tipoIncidente.titulo,
+                              ),
+                              subtitle: Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    incidents[index].datosCiudadano.nombres,
+                                  ),
+                                  Text(
+                                    "34565622",
+                                  ),
+                                  Text(
+                                    "2022/12/31 10:40 AM",
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
-                        ),
-                      ),
-                    );
+                          );
+                        },
+                      );
+                    }
+                    return CircularProgressIndicator();
                   },
                 ),
               ],

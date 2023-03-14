@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:codigo6_alertas/models/incident_model.dart';
 import 'package:codigo6_alertas/models/user_model.dart';
 import 'package:codigo6_alertas/utils/sp_global.dart';
 import 'package:http/http.dart' as http;
@@ -48,4 +49,16 @@ class ApiService {
   register() {}
 
   //
+
+  Future<List<IncidentModel>> getIncidents() async {
+    Uri url = Uri.parse("http://167.99.240.65/API/incidentes/");
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      List data = json.decode(response.body);
+      List<IncidentModel> incidents = [];
+      incidents = data.map((e) => IncidentModel.fromJson(e)).toList();
+      return incidents;
+    }
+    return [];
+  }
 }
