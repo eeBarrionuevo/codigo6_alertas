@@ -1,3 +1,4 @@
+import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:flutter/material.dart';
 
 class CommonTextFieldPasswordWidget extends StatefulWidget {
@@ -51,7 +52,7 @@ class _CommonTextFielPasswordWidgetState
                   isInvisible
                       ? Icons.remove_red_eye
                       : Icons.remove_red_eye_outlined,
-                  color: Color(0xff605AF8),
+                  color: kBrandPrimaryColor,
                 ),
                 onPressed: () {
                   isInvisible = !isInvisible;

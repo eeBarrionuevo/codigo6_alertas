@@ -1,5 +1,6 @@
 import 'package:codigo6_alertas/models/incident_model.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
+import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatelessWidget {
@@ -62,10 +63,10 @@ class HomePage extends StatelessWidget {
                                     incidents[index].datosCiudadano.nombres,
                                   ),
                                   Text(
-                                    "34565622",
+                                    "DNI: ${incidents[index].datosCiudadano.dni}",
                                   ),
                                   Text(
-                                    "2022/12/31 10:40 AM",
+                                    "${incidents[index].fecha} ${incidents[index].hora}",
                                   ),
                                 ],
                               ),
@@ -74,7 +75,7 @@ class HomePage extends StatelessWidget {
                         },
                       );
                     }
-                    return CircularProgressIndicator();
+                    return loadingWidget;
                   },
                 ),
               ],

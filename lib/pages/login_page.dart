@@ -1,9 +1,11 @@
 import 'package:codigo6_alertas/pages/init_page.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
+import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:codigo6_alertas/utils/types.dart';
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
 import 'package:codigo6_alertas/widgets/common_textfield_password_widget.dart';
+import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 
 class LoginPage extends StatefulWidget {
@@ -139,7 +141,7 @@ class _LoginPageState extends State<LoginPage> {
                             child: Text(
                               " Regístrate",
                               style: TextStyle(
-                                color: Color(0xff605AF8),
+                                color: kBrandPrimaryColor,
                                 fontWeight: FontWeight.w600,
                               ),
                             ),
@@ -155,16 +157,7 @@ class _LoginPageState extends State<LoginPage> {
           isLoading
               ? Container(
                   color: Colors.white.withOpacity(0.8),
-                  child: const Center(
-                    child: SizedBox(
-                      height: 20,
-                      width: 20,
-                      child: CircularProgressIndicator(
-                        strokeWidth: 2.4,
-                        color: Color(0xff605AF8),
-                      ),
-                    ),
-                  ),
+                  child: loadingWidget,
                 )
               : const SizedBox(),
         ],
