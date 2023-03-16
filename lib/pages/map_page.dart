@@ -1,5 +1,6 @@
 import 'package:codigo6_alertas/models/incident_model.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
+import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -13,7 +14,7 @@ class _MapPageState extends State<MapPage> {
   Set<Marker> myMarkers = {};
   ApiService apiService = ApiService();
 
-  void showIncidentDetail() {
+  void showIncidentDetail(IncidentModel model) {
     showDialog(
       context: context,
       builder: (BuildContext context) {
@@ -38,22 +39,28 @@ class _MapPageState extends State<MapPage> {
               ),
               Divider(),
               Text(
-                "Tipo: Secuestro",
+                model.tipoIncidente.titulo,
               ),
               Text(
-                "Elvis Barrionuevo",
+                model.datosCiudadano.nombres,
               ),
               Text(
-                "45454545",
+                model.datosCiudadano.dni,
               ),
               Text(
-                "987 456 123",
+                model.datosCiudadano.telefono,
               ),
               Text(
-                "Av. Lima 1232",
+                "${model.fecha} ${model.hora}",
               ),
-              Text(
-                "12/12/2024 12:22:22",
+              const SizedBox(
+                height: 12.0,
+              ),
+              CommonButtonWidget(
+                text: "Aceptar",
+                onPressed: () {
+                  Navigator.pop(context);
+                },
               ),
             ],
           ),
@@ -75,7 +82,7 @@ class _MapPageState extends State<MapPage> {
                 markerId: MarkerId(myMarkers.length.toString()),
                 position: LatLng(item.latitud, item.longitud),
                 onTap: () {
-                  showIncidentDetail();
+                  showIncidentDetail(item);
                 },
               );
               myMarkers.add(myMarker);
