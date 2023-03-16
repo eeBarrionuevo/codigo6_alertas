@@ -1,3 +1,4 @@
+import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:flutter/material.dart';
 
 class RegisterIncidentModal extends StatefulWidget {
@@ -13,6 +14,9 @@ class _RegisterIncidentModalState extends State<RegisterIncidentModal> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16.0),
+      ),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -41,29 +45,40 @@ class _RegisterIncidentModalState extends State<RegisterIncidentModal> {
                 ),
               ],
             ),
-            child: DropdownButton(
-              value: indexIncidentType,
-              isExpanded: true,
-              // icon: Icon(Icons.chevron_right),
-              items: [
-                DropdownMenuItem(
-                  value: 1,
-                  child: Text("Robo"),
-                ),
-                DropdownMenuItem(
-                  value: 2,
-                  child: Text("Secuestro"),
-                ),
-                DropdownMenuItem(
-                  value: 3,
-                  child: Text("Mordedura"),
-                ),
-              ],
-              onChanged: (int? value) {
-                indexIncidentType = value!;
-                setState(() {});
-              },
+            child: DropdownButtonHideUnderline(
+              child: DropdownButton(
+                value: indexIncidentType,
+                isExpanded: true,
+                // icon: Icon(Icons.chevron_right),
+                // underline: SizedBox(),
+                borderRadius: BorderRadius.circular(14.0),
+                items: [
+                  DropdownMenuItem(
+                    value: 1,
+                    child: Text("Robo"),
+                  ),
+                  DropdownMenuItem(
+                    value: 2,
+                    child: Text("Secuestro"),
+                  ),
+                  DropdownMenuItem(
+                    value: 3,
+                    child: Text("Mordedura"),
+                  ),
+                ],
+                onChanged: (int? value) {
+                  indexIncidentType = value!;
+                  setState(() {});
+                },
+              ),
             ),
+          ),
+          const SizedBox(
+            height: 16.0,
+          ),
+          CommonButtonWidget(
+            text: "Enviar",
+            onPressed: () {},
           ),
         ],
       ),
