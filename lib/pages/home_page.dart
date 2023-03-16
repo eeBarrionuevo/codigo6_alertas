@@ -1,4 +1,5 @@
 import 'package:codigo6_alertas/models/incident_model.dart';
+import 'package:codigo6_alertas/pages/modals/register_incident_modal.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:codigo6_alertas/widgets/general_widget.dart';
@@ -6,12 +7,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:url_launcher/url_launcher.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
   ApiService apiService = ApiService();
+
+  showSendIncident() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return RegisterIncidentModal();
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: kBrandPrimaryColor,
+        child: Icon(Icons.add),
+        onPressed: () {
+          showSendIncident();
+        },
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
