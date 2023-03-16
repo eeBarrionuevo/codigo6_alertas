@@ -1,4 +1,5 @@
 import 'package:codigo6_alertas/models/incident_model.dart';
+import 'package:codigo6_alertas/models/incident_type_model.dart';
 import 'package:codigo6_alertas/pages/modals/register_incident_modal.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:codigo6_alertas/ui/general/colors.dart';
@@ -15,11 +16,23 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   ApiService apiService = ApiService();
 
+  List<IncidentTypeModel> incidentsType = [];
+
+  @override
+  void initState() {
+    super.initState();
+    apiService.getIncidentsType().then((value) {
+      incidentsType = value;
+    });
+  }
+
   showSendIncident() {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return RegisterIncidentModal();
+        return RegisterIncidentModal(
+          incidentsType: incidentsType,
+        );
       },
     );
   }

@@ -2,8 +2,10 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'package:codigo6_alertas/models/incident_model.dart';
+import 'package:codigo6_alertas/models/incident_type_model.dart';
 import 'package:codigo6_alertas/models/user_model.dart';
 import 'package:codigo6_alertas/utils/sp_global.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
 
 class ApiService {
@@ -62,5 +64,45 @@ class ApiService {
       return incidents;
     }
     return [];
+  }
+
+  Future<List<IncidentTypeModel>> getIncidentsType() async {
+    Uri url = Uri.parse("http://167.99.240.65/API/incidentes/tipos/");
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      String dataConvert = Utf8Decoder().convert(response.bodyBytes);
+      List data = json.decode(dataConvert);
+      List<IncidentTypeModel> incidentsType = [];
+      incidentsType = data.map((e) => IncidentTypeModel.fromJson(e)).toList();
+      return incidentsType;
+    }
+    return [];
+  }
+
+  Future<IncidentModel> registerIncident(int type, Position position) async {
+    Uri url = Uri.parse("http://167.99.240.65/API/incidentes/crear/");
+    http.Response response = await http.post(
+      url,
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": "Token ${SPGlobal().token}",
+      },
+      body: json.encode(
+        {
+          "latitud": position.latitude,
+          "longitud": position.longitude,
+          "tipoIncidente": type,
+          "estado": "Abierto"
+        },
+      ),
+    );
+    if (response.statusCode == 201) {
+      String dataConvert = Utf8Decoder().convert(response.bodyBytes);
+      Map<String, dynamic> data = json.decode(dataConvert);
+      IncidentModel incidentModel = IncidentModel.fromJson(data);
+      return incidentModel;
+    } else {
+      throw {"message": "Hubo un incoveniente, inténtalo nuevamente."};
+    }
   }
 }
