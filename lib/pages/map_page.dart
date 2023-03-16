@@ -13,6 +13,55 @@ class _MapPageState extends State<MapPage> {
   Set<Marker> myMarkers = {};
   ApiService apiService = ApiService();
 
+  void showIncidentDetail() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+          ),
+          content: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    "Detalle de la alerta",
+                    style: TextStyle(
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ],
+              ),
+              Divider(),
+              Text(
+                "Tipo: Secuestro",
+              ),
+              Text(
+                "Elvis Barrionuevo",
+              ),
+              Text(
+                "45454545",
+              ),
+              Text(
+                "987 456 123",
+              ),
+              Text(
+                "Av. Lima 1232",
+              ),
+              Text(
+                "12/12/2024 12:22:22",
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,11 +70,13 @@ class _MapPageState extends State<MapPage> {
         builder: (BuildContext context, AsyncSnapshot snap) {
           if (snap.hasData) {
             List<IncidentModel> incidents = snap.data;
-
             incidents.forEach((item) {
               Marker myMarker = Marker(
                 markerId: MarkerId(myMarkers.length.toString()),
                 position: LatLng(item.latitud, item.longitud),
+                onTap: () {
+                  showIncidentDetail();
+                },
               );
               myMarkers.add(myMarker);
             });
@@ -36,14 +87,14 @@ class _MapPageState extends State<MapPage> {
                 zoom: 5,
               ),
               markers: myMarkers,
-              onTap: (LatLng position) {
-                Marker marker = Marker(
-                  markerId: MarkerId(myMarkers.length.toString()),
-                  position: position,
-                );
-                myMarkers.add(marker);
-                setState(() {});
-              },
+              // onTap: (LatLng position) {
+              //   Marker marker = Marker(
+              //     markerId: MarkerId(myMarkers.length.toString()),
+              //     position: position,
+              //   );
+              //   myMarkers.add(marker);
+              //   setState(() {});
+              // },
             );
           }
           return loadingWidget;
