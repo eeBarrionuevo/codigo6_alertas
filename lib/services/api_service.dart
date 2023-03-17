@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 import 'package:codigo6_alertas/models/incident_model.dart';
 import 'package:codigo6_alertas/models/incident_type_model.dart';
+import 'package:codigo6_alertas/models/news_model.dart';
 import 'package:codigo6_alertas/models/user_model.dart';
 import 'package:codigo6_alertas/utils/sp_global.dart';
 import 'package:geolocator/geolocator.dart';
@@ -104,5 +105,18 @@ class ApiService {
     } else {
       throw {"message": "Hubo un incoveniente, inténtalo nuevamente."};
     }
+  }
+
+  Future<List<NewsModel>> getNews() async {
+    Uri url = Uri.parse("http://167.99.240.65/API/noticias/");
+    http.Response response = await http.get(url);
+    if (response.statusCode == 200) {
+      String dataConvert = Utf8Decoder().convert(response.bodyBytes);
+      List data = json.decode(dataConvert);
+      List<NewsModel> news = [];
+      news = data.map((e) => NewsModel.fromJson(e)).toList();
+      return news;
+    }
+    return [];
   }
 }
