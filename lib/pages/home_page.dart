@@ -34,7 +34,10 @@ class _HomePageState extends State<HomePage> {
           incidentsType: incidentsType,
         );
       },
-    );
+    ).then((value) {
+      print("Hola");
+      setState(() {});
+    });
   }
 
   @override

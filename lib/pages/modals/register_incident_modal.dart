@@ -26,10 +26,8 @@ class _RegisterIncidentModalState extends State<RegisterIncidentModal> {
     apiService.registerIncident(indexIncidentType, position).then((value) {
       isLoading = false;
       setState(() {});
-      print(value);
       Navigator.pop(context);
     }).catchError((error) {
-      print(error);
       isLoading = false;
       setState(() {});
     });
