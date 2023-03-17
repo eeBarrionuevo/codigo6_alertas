@@ -37,7 +37,15 @@ class NewsPage extends StatelessWidget {
                         itemBuilder: (BuildContext context, int index) {
                           return Row(
                             children: [
-                              Image.network(news[index].imagen),
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(10.0),
+                                child: Image.network(
+                                  news[index].imagen,
+                                  height: 70,
+                                  width: 70,
+                                  fit: BoxFit.cover,
+                                ),
+                              ),
                             ],
                           );
                         },
