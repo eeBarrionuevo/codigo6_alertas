@@ -35,18 +35,68 @@ class NewsPage extends StatelessWidget {
                         physics: const BouncingScrollPhysics(),
                         itemCount: news.length,
                         itemBuilder: (BuildContext context, int index) {
-                          return Row(
-                            children: [
-                              ClipRRect(
-                                borderRadius: BorderRadius.circular(10.0),
-                                child: Image.network(
-                                  news[index].imagen,
-                                  height: 70,
-                                  width: 70,
-                                  fit: BoxFit.cover,
+                          return Container(
+                            margin: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                            ),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 12.0,
+                              vertical: 10.0,
+                            ),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(14.0),
+                              boxShadow: [
+                                BoxShadow(
+                                  blurRadius: 12,
+                                  color: Colors.black.withOpacity(0.06),
+                                  offset: const Offset(4, 4),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
+                            child: Row(
+                              children: [
+                                ClipRRect(
+                                  borderRadius: BorderRadius.circular(8.0),
+                                  child: Image.network(
+                                    news[index].imagen,
+                                    height: 70,
+                                    width: 70,
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                                const SizedBox(
+                                  width: 12.0,
+                                ),
+                                Expanded(
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        //"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+                                        news[index].titulo,
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      Text(
+                                        //"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation",
+                                        news[index].fecha.toString(),
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 12.0,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           );
                         },
                       );
