@@ -1,5 +1,7 @@
 import 'package:codigo6_alertas/models/news_model.dart';
+import 'package:codigo6_alertas/pages/news_form_page.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
+import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 
@@ -9,6 +11,15 @@ class NewsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => NewsFormPage()));
+        },
+        backgroundColor: kBrandPrimaryColor,
+        child: const Icon(Icons.add),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Padding(
