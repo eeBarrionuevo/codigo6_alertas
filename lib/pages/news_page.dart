@@ -5,7 +5,12 @@ import 'package:codigo6_alertas/ui/general/colors.dart';
 import 'package:codigo6_alertas/widgets/general_widget.dart';
 import 'package:flutter/material.dart';
 
-class NewsPage extends StatelessWidget {
+class NewsPage extends StatefulWidget {
+  @override
+  State<NewsPage> createState() => _NewsPageState();
+}
+
+class _NewsPageState extends State<NewsPage> {
   ApiService apiService = ApiService();
 
   @override
@@ -13,8 +18,11 @@ class NewsPage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.push(
-              context, MaterialPageRoute(builder: (context) => NewsFormPage()));
+          Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => NewsFormPage()))
+              .then((value) {
+            setState(() {});
+          });
         },
         backgroundColor: kBrandPrimaryColor,
         child: const Icon(Icons.add),
@@ -41,6 +49,7 @@ class NewsPage extends StatelessWidget {
                   builder: (BuildContext context, AsyncSnapshot snap) {
                     if (snap.hasData) {
                       List<NewsModel> news = snap.data;
+                      news = news.reversed.toList();
                       return ListView.builder(
                         shrinkWrap: true,
                         physics: const BouncingScrollPhysics(),

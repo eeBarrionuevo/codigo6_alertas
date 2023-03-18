@@ -69,7 +69,7 @@ class _NewsFormPageState extends State<NewsFormPage> {
         apiService.registerNews(model).then((value) {
           //
           isLoading = false;
-          setState(() {});
+          Navigator.pop(context);
         }).catchError((error) {
           isLoading = false;
           setState(() {});
