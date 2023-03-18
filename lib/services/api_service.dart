@@ -122,7 +122,7 @@ class ApiService {
     return [];
   }
 
-  registerNews(NewsModel model) async {
+  Future<NewsModel> registerNews(NewsModel model) async {
     Uri url = Uri.parse("http://167.99.240.65/API/noticias/");
     http.MultipartRequest request = http.MultipartRequest(
       "POST",
@@ -147,6 +147,13 @@ class ApiService {
 
     http.Response response = await http.Response.fromStream(streamedResponse);
 
-    print(response.statusCode);
+    if (response.statusCode == 201) {
+      String dataConvert = const Utf8Decoder().convert(response.bodyBytes);
+      Map<String, dynamic> data = json.decode(dataConvert);
+      NewsModel news = NewsModel.fromJson(data);
+      return news;
+    } else {
+      throw {"message": "Hubo un incoveniente, inténtalo nuevamente."};
+    }
   }
 }
