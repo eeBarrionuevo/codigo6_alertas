@@ -8,6 +8,8 @@ import 'package:codigo6_alertas/models/user_model.dart';
 import 'package:codigo6_alertas/utils/sp_global.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart' as http;
+import 'package:mime_type/mime_type.dart';
+import 'package:http_parser/http_parser.dart';
 
 class ApiService {
   Future<UserModel> login(String dni, String password) async {
@@ -118,5 +120,24 @@ class ApiService {
       return news;
     }
     return [];
+  }
+
+  registerNews() async {
+    Uri url = Uri.parse("http://167.99.240.65/API/noticias/");
+    http.MultipartRequest request = http.MultipartRequest("POST", url);
+    request.fields["titulo"] = "Noticia: Elvis desde el App";
+    request.fields["link"] = "https://www.youtube.com/watch?v=2pqSKlI3QuU";
+    request.fields["fecha"] = "2023-03-17";
+
+    print(mime(
+        "/storage/emulated/0/Android/data/com.example.codigo6_alertas/cache/pexels-photo-15836010_compressed4897877697850099489.png"));
+
+    http.MultipartFile file = await http.MultipartFile.fromPath(
+      "imagen",
+      "/storage/emulated/0/Android/data/com.example.codigo6_alertas/cache/pexels-photo-15836010_compressed4897877697850099489.jpg",
+      contentType: MediaType("image", "png"),
+    );
+
+    request.files.add(file);
   }
 }

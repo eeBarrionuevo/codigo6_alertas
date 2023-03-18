@@ -1,9 +1,11 @@
 import 'dart:io';
 
+import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:codigo6_alertas/utils/types.dart';
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
 import 'package:codigo6_alertas/widgets/common_texfield_widget.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_native_image/flutter_native_image.dart';
 import 'package:image_picker/image_picker.dart';
 
 class NewsFormPage extends StatefulWidget {
@@ -34,6 +36,16 @@ class _NewsFormPageState extends State<NewsFormPage> {
       print(image!.path);
       setState(() {});
     }
+  }
+
+  registerNews() async {
+    print(image!.path);
+    print(await image!.length());
+    File newImageFile = await FlutterNativeImage.compressImage(image!.path);
+    print(newImageFile);
+    print(newImageFile.lengthSync());
+    ApiService apiService = ApiService();
+    apiService.registerNews();
   }
 
   @override
@@ -124,6 +136,9 @@ class _NewsFormPageState extends State<NewsFormPage> {
                     //         "assets/images/placeholder.webp",
                     //         height: 200,
                     //       ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     Container(
                       width: double.infinity,
                       height: 220,
@@ -150,7 +165,9 @@ class _NewsFormPageState extends State<NewsFormPage> {
               padding: const EdgeInsets.all(12.0),
               child: CommonButtonWidget(
                 text: "Registrar",
-                onPressed: () {},
+                onPressed: () {
+                  registerNews();
+                },
               ),
             ),
           ),
