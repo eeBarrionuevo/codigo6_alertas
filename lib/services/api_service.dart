@@ -122,22 +122,31 @@ class ApiService {
     return [];
   }
 
-  registerNews() async {
+  registerNews(NewsModel model) async {
     Uri url = Uri.parse("http://167.99.240.65/API/noticias/");
-    http.MultipartRequest request = http.MultipartRequest("POST", url);
-    request.fields["titulo"] = "Noticia: Elvis desde el App";
-    request.fields["link"] = "https://www.youtube.com/watch?v=2pqSKlI3QuU";
-    request.fields["fecha"] = "2023-03-17";
+    http.MultipartRequest request = http.MultipartRequest(
+      "POST",
+      url,
+    );
+    //set headers
+    //request.headers.addAll({});
+    request.fields["titulo"] = model.titulo;
+    request.fields["link"] = model.link;
+    request.fields["fecha"] = model.fecha.toString().substring(0, 10);
 
-    print(mime(
-        "/storage/emulated/0/Android/data/com.example.codigo6_alertas/cache/pexels-photo-15836010_compressed4897877697850099489.png"));
+    List<String> dataMime = mime(model.imagen)!.split("/");
 
     http.MultipartFile file = await http.MultipartFile.fromPath(
       "imagen",
-      "/storage/emulated/0/Android/data/com.example.codigo6_alertas/cache/pexels-photo-15836010_compressed4897877697850099489.jpg",
-      contentType: MediaType("image", "png"),
+      model.imagen,
+      contentType: MediaType(dataMime[0], dataMime[1]),
     );
-
     request.files.add(file);
+
+    http.StreamedResponse streamedResponse = await request.send();
+
+    http.Response response = await http.Response.fromStream(streamedResponse);
+
+    print(response.statusCode);
   }
 }

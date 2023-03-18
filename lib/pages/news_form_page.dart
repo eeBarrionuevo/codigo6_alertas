@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:codigo6_alertas/models/news_model.dart';
 import 'package:codigo6_alertas/services/api_service.dart';
 import 'package:codigo6_alertas/utils/types.dart';
 import 'package:codigo6_alertas/widgets/common_button_widget.dart';
@@ -44,8 +45,18 @@ class _NewsFormPageState extends State<NewsFormPage> {
     File newImageFile = await FlutterNativeImage.compressImage(image!.path);
     print(newImageFile);
     print(newImageFile.lengthSync());
+
     ApiService apiService = ApiService();
-    apiService.registerNews();
+    NewsModel model = NewsModel(
+      id: 0,
+      link:
+          "https://www.youtube.com/watch?v=2pqSKlI3QuU&list=RDGMEMYH9CUrFO7CfLJpaD7UR85w&index=5",
+      titulo: "Noticia: Elvis desde el App 3",
+      fecha: DateTime.now(),
+      imagen: newImageFile.path,
+    );
+
+    apiService.registerNews(model);
   }
 
   @override
